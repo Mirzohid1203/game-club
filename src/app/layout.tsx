@@ -14,7 +14,6 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Game Club",
   description: "game club- crm,  dashboard",
-  icons: "icon.svg"
 };
 
 export default function RootLayout({
@@ -25,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={` ${poppins.className} antialiased`}
+        className={` ${poppins.className} antialiased w-full h-screen`}
       >
         {children}
       </body>
