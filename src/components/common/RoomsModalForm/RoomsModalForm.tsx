@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import z from "zod"
 import { Dispatch, SetStateAction } from 'react'
+import { useSetRooms } from '@/hooks/useSetRooms'
 
 const roomShchema = z.object({
     name: z
@@ -26,11 +27,12 @@ type Props = {
 
 }
 function RoomsModalForm({ setShowModal }: Props) {
+    const { setRoom } = useSetRooms()
     const { register, handleSubmit, reset, formState: { errors } } = useForm<TRoom>({
         resolver: zodResolver(roomShchema),
     })
     const onsubmit = (room: TRoom) => {
-        console.log(room);
+        setRoom(room)
         reset()
         setShowModal(false)
     }
