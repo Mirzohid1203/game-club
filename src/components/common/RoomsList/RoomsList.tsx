@@ -13,6 +13,7 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { useGetRooms } from "@/hooks/useGetRooms";
 import { Badge } from "@/components/ui/badge";
+import { Settings } from "lucide-react";
 
 
 
@@ -38,8 +39,8 @@ function RoomsList() {
                         <TableRow>
                             <TableHead className="">Nomi</TableHead>
                             <TableHead>Statusi</TableHead>
-                            <TableHead className="text-right">Narxi
-                            </TableHead>
+                            <TableHead >Narxi </TableHead>
+                            <TableHead className="text-right">Sozlamalar</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -47,7 +48,10 @@ function RoomsList() {
                             <TableRow key={room.name}>
                                 <TableCell className="font-medium">{room.name}</TableCell>
                                 <TableCell>{room.isBusy ? <Badge variant={"error"}>Band</Badge> : <Badge variant={"succes"}>Bo'sh</Badge>}</TableCell>
-                                <TableCell className="text-right">{room.price} so'm</TableCell>
+                                <TableCell >{room.price} so'm</TableCell>
+                                <TableCell className="flex justify-end">
+                                    <Settings className="cursor-pointer" />
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
