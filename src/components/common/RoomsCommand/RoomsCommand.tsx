@@ -22,17 +22,18 @@ import { DeleteItem } from "../DeleteItem/DeleteItem"
 type Props = {
     open: boolean,
     setOpen: React.Dispatch<React.SetStateAction<boolean>>
+    roomId: string
 }
-export function RoomsCommand({ open, setOpen }: Props) {
+export function RoomsCommand({ open, setOpen, roomId }: Props) {
     const [showDeleteModal, setShowDeleteMOdal] = React.useState(false)
     const handleClick = () => {
-        setShowDeleteMOdal(true)
         setOpen(false)
+        setShowDeleteMOdal(true)
     }
 
     return (
         <div className="flex flex-col gap-4">
-            <DeleteItem open={showDeleteModal} setOpen={setShowDeleteMOdal} />
+            <DeleteItem roomId={roomId} open={showDeleteModal} setOpen={setShowDeleteMOdal} />
             <CommandDialog className="w-100" open={open} onOpenChange={setOpen}>
                 <Command>
                     <CommandList>

@@ -21,6 +21,7 @@ import { RoomsCommand } from "../RoomsCommand/RoomsCommand";
 
 function RoomsList() {
     const [showModal, setShowModal] = useState(false)
+    const [roomId, setRoomId] = useState("")
     const { rooms, loading } = useGetRooms()
 
     console.log(rooms);
@@ -33,9 +34,15 @@ function RoomsList() {
     if (loading) {
         return <Spinner />
     }
+
+    const handleClick = (roomId: string) => {
+        setShowModal(true)
+        setRoomId(roomId)
+    }
+
     return (
         <div>
-            <RoomsCommand open={showModal} setOpen={setShowModal} />
+            <RoomsCommand roomId={roomId} open={showModal} setOpen={setShowModal} />
             <Table>
                 <TableCaption>A list of your recent invoices.</TableCaption>
                 <TableHeader>
@@ -47,7 +54,7 @@ function RoomsList() {
                 </TableHeader>
                 <TableBody>
                     {rooms.map((room) => (
-                        <TableRow onClick={() => setShowModal(true)} key={room.name} className="select-none cursor-pointer">
+                        <TableRow onClick={() => handleClick(room.id)} key={room.name} className="select-none cursor-pointer">
                             <TableCell className="font-medium">{room.name}</TableCell>
                             <TableCell>{room.isBusy ? <Badge variant={"error"}>Band</Badge> : <Badge variant={"succes"}>Bo'sh</Badge>}</TableCell>
                             <TableCell className="text-end" >{room.price} so'm</TableCell>

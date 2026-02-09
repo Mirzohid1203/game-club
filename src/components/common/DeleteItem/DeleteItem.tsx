@@ -11,15 +11,21 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
+import { useDeleteRoom } from "@/hooks/useDeleteRoom"
 import { Trash2Icon } from "lucide-react"
 import { Dispatch, SetStateAction } from "react"
 
 type Props = {
     open: boolean,
     setOpen: Dispatch<SetStateAction<boolean>>
+    roomId: string
 }
 
-export function DeleteItem({ open, setOpen }: Props) {
+export function DeleteItem({ open, setOpen, roomId }: Props) {
+    const { deleteRoom } = useDeleteRoom()
+    const handleDelete = () => {
+        deleteRoom(roomId)
+    }
     return (
         <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogContent size="sm">
@@ -34,7 +40,7 @@ export function DeleteItem({ open, setOpen }: Props) {
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel variant="outline">ortga</AlertDialogCancel>
-                    <AlertDialogAction variant="destructive">o'chirish</AlertDialogAction>
+                    <AlertDialogAction onClick={handleDelete} variant="destructive">o'chirish</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
