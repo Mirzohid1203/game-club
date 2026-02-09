@@ -25,3 +25,6 @@ export const getRoom = function (fn: (room: FullRoomType[]) => void) {
         fn(rooms)
     })
 }
+
+
+export const deleteRoom 
