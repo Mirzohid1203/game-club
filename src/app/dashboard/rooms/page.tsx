@@ -11,6 +11,7 @@ function Rooms() {
         </div>
 
         <RoomsList />
+
     </div>
 }
 

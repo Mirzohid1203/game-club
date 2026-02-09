@@ -14,10 +14,13 @@ import { Spinner } from "@/components/ui/spinner";
 import { useGetRooms } from "@/hooks/useGetRooms";
 import { Badge } from "@/components/ui/badge";
 import { Settings } from "lucide-react";
+import { useState } from "react";
+import { RoomsCommand } from "../RoomsCommand/RoomsCommand";
 
 
 
 function RoomsList() {
+    const [showModal, setShowModal] = useState(false)
     const { rooms, loading } = useGetRooms()
 
     console.log(rooms);
@@ -32,38 +35,32 @@ function RoomsList() {
     }
     return (
         <div>
-            <ul>
-                <Table>
-                    <TableCaption>A list of your recent invoices.</TableCaption>
-                    <TableHeader>
-                        <TableRow>
-                            <TableHead className="">Nomi</TableHead>
-                            <TableHead>Statusi</TableHead>
-                            <TableHead >Narxi </TableHead>
-                            <TableHead className="text-right">Sozlamalar</TableHead>
+            <RoomsCommand open={showModal} setOpen={setShowModal} />
+            <Table>
+                <TableCaption>A list of your recent invoices.</TableCaption>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead className="">Nomi</TableHead>
+                        <TableHead>Statusi</TableHead>
+                        <TableHead className="text-end" >Narxi </TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {rooms.map((room) => (
+                        <TableRow onClick={() => setShowModal(true)} key={room.name} className="select-none cursor-pointer">
+                            <TableCell className="font-medium">{room.name}</TableCell>
+                            <TableCell>{room.isBusy ? <Badge variant={"error"}>Band</Badge> : <Badge variant={"succes"}>Bo'sh</Badge>}</TableCell>
+                            <TableCell className="text-end" >{room.price} so'm</TableCell>
                         </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {rooms.map((room) => (
-                            <TableRow key={room.name}>
-                                <TableCell className="font-medium">{room.name}</TableCell>
-                                <TableCell>{room.isBusy ? <Badge variant={"error"}>Band</Badge> : <Badge variant={"succes"}>Bo'sh</Badge>}</TableCell>
-                                <TableCell >{room.price} so'm</TableCell>
-                                <TableCell className="flex justify-end">
-                                    <Settings className="cursor-pointer" />
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                    {/* <TableFooter>
+                    ))}
+                </TableBody>
+                {/* <TableFooter>
                         <TableRow>
                             <TableCell colSpan={3}>Total</TableCell>
                             <TableCell className="text-right">$2,500.00</TableCell>
                         </TableRow>
                     </TableFooter> */}
-                </Table>
-
-            </ul>
+            </Table>
         </div>
     )
 
